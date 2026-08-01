@@ -1,0 +1,9 @@
+# Backend ignores
+backend/venv/
+backend/uploads/
+backend/__pycache__/
+*.pyc
+
+# Frontend ignores (just in case)
+frontend/node_modules/
+frontend/.next/
