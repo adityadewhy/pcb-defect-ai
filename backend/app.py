@@ -13,6 +13,10 @@ CORS(app)
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'best.pt')
 model = YOLO(MODEL_PATH)
 
+@app.route('/', methods=['GET', 'HEAD'])
+def health_check():
+    return "PCB AI Backend is awake and running!"
+
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
