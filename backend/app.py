@@ -8,6 +8,10 @@ from flask_cors import CORS
 from ultralytics import YOLO
 from PIL import Image
 
+# CRITICAL SPEED FIX: Force PyTorch to 1 thread on shared CPU containers
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
+
 app = Flask(__name__)
 CORS(app)
 
@@ -30,9 +34,11 @@ def predict():
     conf_threshold = float(request.form.get('confidence', 0.25))
 
     try:
+        # Load image and resize to max 800x800 to prevent memory spikes & speed up processing
         img = Image.open(file.stream).convert('RGB')
+        img.thumbnail((800, 800))
 
-        # Run inference in no_grad mode to save memory on 512MB RAM server
+        # Run fast single-threaded inference
         with torch.no_grad():
             results = model.predict(source=img, conf=conf_threshold, imgsz=640)
         
@@ -57,7 +63,7 @@ def predict():
         base64_img = base64.b64encode(buffer.getvalue()).decode('utf-8')
         image_url = f"data:image/jpeg;base64,{base64_img}"
 
-        # Clean up memory explicitly
+        # Clean memory
         del results, result, res_plotted, annotated_img, img
         gc.collect()
 
