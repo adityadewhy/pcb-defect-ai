@@ -181,7 +181,7 @@ export default function Home() {
 		formData.append("confidence", confidence.toString());
 
 		try {
-			const response = await fetch("http://127.0.0.1:5000/predict", {
+			const response = await fetch("https://pcb-defect-ai-backend.onrender.com", {
 				method: "POST",
 				body: formData,
 			});
