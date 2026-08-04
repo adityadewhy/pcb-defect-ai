@@ -36,7 +36,7 @@ def predict():
     try:
         # Load image and resize to max 800x800 to prevent memory spikes & speed up processing
         img = Image.open(file.stream).convert('RGB')
-        img.thumbnail((800, 800))
+        img.thumbnail((640,  640))
 
         # Run fast single-threaded inference
         with torch.no_grad():
