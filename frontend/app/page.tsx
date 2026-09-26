@@ -425,10 +425,6 @@ export default function Home() {
 									</div>
 								)}
 							</div>
-
-							<div className="text-[10px] font-mono text-center text-neutral-500 border-t border-neutral-300 pt-4 uppercase">
-								AI PCB INSPECTOR SYSTEM &bull; CONFIDENTIAL AUDIT DATA
-							</div>
 						</div>
 
 						{/* PAGE 2: Defect Analytics & Table */}
